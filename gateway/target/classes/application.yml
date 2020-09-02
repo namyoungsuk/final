@@ -1,0 +1,90 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: Ptorder
+          uri: http://localhost:8081
+          predicates:
+            - Path=/ptorders/** 
+        - id: Ptmanager
+          uri: http://localhost:8082
+          predicates:
+            - Path=/ptmanagers/** 
+        - id: Pttrainer
+          uri: http://localhost:8083
+          predicates:
+            - Path=/pttrainers/** 
+        - id: ptPay
+          uri: http://localhost:8084
+          predicates:
+            - Path=/ptPays/** 
+        - id: ptTicket
+          uri: http://localhost:8085
+          predicates:
+            - Path=/ptTickets/** 
+        - id: ptTicketManager
+          uri: http://localhost:8086
+          predicates:
+            - Path=/ptTicketManagers/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: Ptorder
+          uri: http://Ptorder:8080
+          predicates:
+            - Path=/ptorders/** 
+        - id: Ptmanager
+          uri: http://Ptmanager:8080
+          predicates:
+            - Path=/ptmanagers/** 
+        - id: Pttrainer
+          uri: http://Pttrainer:8080
+          predicates:
+            - Path=/pttrainers/** 
+        - id: ptPay
+          uri: http://ptPay:8080
+          predicates:
+            - Path=/ptPays/** 
+        - id: ptTicket
+          uri: http://ptTicket:8080
+          predicates:
+            - Path=/ptTickets/** 
+        - id: ptTicketManager
+          uri: http://ptTicketManager:8080
+          predicates:
+            - Path=/ptTicketManagers/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
